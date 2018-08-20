@@ -2,11 +2,11 @@
 
 ## 概述
 
-本项目是对[Richard S. Sutton](http://incompleteideas.net/index.html)和 [Andrew G. Barto](http://www-anw.cs.umass.edu/~barto/)著的*[Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book-2nd.html)*第二版的中文翻译. 使用$\LaTeX$作为排版工具, 使用[GitHub](https://github.com/)作为源码托管平台.
+本项目是对[Richard S. Sutton](http://incompleteideas.net/index.html)和 [Andrew G. Barto](http://www-anw.cs.umass.edu/~barto/)著的*[Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book-2nd.html)*第二版的中文翻译. 使用LaTeX作为排版工具, 使用[GitHub](https://github.com/rl-cn/rl-cn)作为源码托管平台.
 
 ## 当前进度
 
-当前翻译了部分序言以及前3章. 
+当前翻译了部分序言以及前3章.
 
 ## 翻译的约定
 
