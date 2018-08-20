@@ -1,0 +1,163 @@
+\documentclass[cs4size, twoside, fancyhdr, fleqn, openany, hyperref]{ctexbook}
+
+% Import the packages
+\usepackage[]{graphicx} % For the insertion of the graphs
+\usepackage{float} % For detailed control of the float
+\usepackage[tbtags]{amsmath} % For math op
+\usepackage{amssymb} % For math op
+% \usepackage{upgreek} % For math op
+\usepackage{bbm} % For \mathbbm{1}
+\usepackage{mathtools} % For math op
+\usepackage{geometry} % For the style of the geometry
+\usepackage[font=small, labelfont=bf]{caption} % For the style of the caption
+\usepackage[nottoc]{tocbibind}
+% \usepackage[normalem]{ulem}
+\usepackage{enumitem}
+\usepackage{latexsym}
+\usepackage[perpage]{footmisc} % For more control on page foot
+\usepackage{tocloft}
+\usepackage[pdfborder={0 0 0}]{hyperref} % For links in pdf
+\usepackage[style=authoryear-comp, natbib]{biblatex}
+% \usepackage{makeidx}
+% \usepackage{glossaries}
+\usepackage{color} % For color support
+\usepackage{xcolor} % For color support
+\usepackage{longtable} % For longtable environment
+\usepackage{wrapfig} % For wrapfigure environment
+\usepackage[many]{tcolorbox} % For tcolorbox environment
+\usepackage{expl3} % For \Repeat macro
+\usepackage[section]{placeins} % For \FloatBarrier macro
+\usepackage{pdfpages} % For the insertion of the cover image
+
+% Set the style of the book
+\geometry{a4paper, centering, scale=0.8}
+\punctstyle{kaiming}
+\linespread{1.4}
+\ctexset{chapter={number={\arabic{chapter}}, format+={\raggedright}, aftername={\\}}, section={name={,节}, format+={\raggedright}}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LO]{\slshape \rightmark}
+\fancyhead[RE]{\slshape \leftmark}
+\fancyhead[LE, RO]{\thepage}
+\newlength{\ecgluelen}
+\setlength{\ecgluelen}{2.3pt plus .3pt minus .1pt}
+%\CJKsetecglue{\hspace{\ecgluelen}}
+
+% Set the format of the ref
+\newcommand{\refglue}{\hspace{\ecgluelen}}
+\newcommand{\partref}[1]{\hyperref[part:#1]{第\zhnumber{#1}部分}}
+\newcommand{\chapref}[1]{\hyperref[chap:#1]{第\refglue #1\refglue 章}}
+\newcommand{\secref}[1]{\hyperref[sec:#1]{\refglue #1\refglue 节}}
+\newcommand{\figref}[1]{\hyperref[fig:#1]{图\refglue #1\refglue}}
+\newcommand{\examref}[1]{\hyperlink{exam:#1}{例\refglue #1\refglue}}
+
+% Set the the depth
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+% Add the bib file
+\addbibresource{rl-cn.bib}
+
+% Set the title of the book
+\title{强化学习导论}
+\author{Richard S. Sutton \and Andrew G. Barto}
+\CTEXoptions[today=small]
+\date{\today}
+
+% Define math operators
+\DeclareMathOperator{\targmax}{argmax}
+\DeclareMathOperator*{\dargmax}{argmax}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+% Define exercise environment
+\newcounter{exercnt}[chapter]
+\renewcommand{\theexercnt}{\arabic{chapter}.\arabic{exercnt}}
+\newenvironment{exer}[1][]{%
+	\par\noindent\stepcounter{exercnt}\textit{练习 \theexercnt: #1}\quad%
+}%
+{%
+	\mbox{}~\hfill $\Box$%
+}
+
+% Define example environment
+\newcounter{examcnt}[chapter]
+\renewcommand{\theexamcnt}{\arabic{chapter}.\arabic{examcnt}}
+\newenvironment{exam}[1][]{%
+	\par\noindent\stepcounter{examcnt}\textit{例 \theexamcnt: #1}\quad%
+}%
+{%
+	\mbox{}~\hfill $\blacksquare$%
+}
+
+% Define pcbox environment(used to contain pseudocode)
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+\newcommand{\pcind}[1][1]{\Repeat{#1}{\phantom{m}}}
+\newenvironment{pcbox}[2]%
+{%
+	\par\noindent\begin{tcolorbox}[title={#1}, floatplacement=#2, float]%
+}%
+{%
+	\end{tcolorbox}%
+}
+
+% Define mathbox environment(used to contain mathematical material)
+\definecolor{framecolor}{rgb}{0.55, 0.55, 0.55}
+\definecolor{bkcolor}{rgb}{0.95, 0.95, 0.95}
+\definecolor{titlecolor}{rgb}{0.5, 0.5, 0.5}
+
+\newenvironment{mathbox}[1]%
+{%
+	\par\noindent\begin{tcolorbox}[title={#1}, breakable, enhanced jigsaw, colframe=framecolor, colback=bkcolor, coltitle=titlecolor, colbacktitle=bkcolor, before=\vspace{1em}, before upper={\parindent2\ccwd}]%
+}%
+{%
+	\end{tcolorbox}%
+}
+
+% Define flushing operation in math mode
+\makeatletter
+\newcommand{\pushright}[1]{\ifmeasuring@#1\else\omit\hfill$\displaystyle#1$\fi\ignorespaces}
+\newcommand{\pushleft}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\hfill\fi\ignorespaces}
+\makeatother
+
+\makeatletter
+\newcommand{\specialcell}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\ignorespaces\fi}
+\makeatother
+
+% Include the tex src files
+\includeonly{c0/frontmatter, c1/introduction, c2/multi-armed_bandits, c3/finite_MDPs}
+%\includeonly{c3/finite_MDPs} 
+
+%---------------------------- The content of the book -------------------------------
+\begin{document}
+\frontmatter
+\pagestyle{empty}
+
+% Make the title
+\begin{titlepage}
+%\maketitle
+\includepdf{c0/img/cover.pdf}
+\cleardoublepage
+\end{titlepage}
+
+% Make the toc
+\tableofcontents
+\cleardoublepage
+
+\pagestyle{fancy}
+
+% Include front matter
+\include{c0/frontmatter}
+
+% Include main matter
+\mainmatter
+\include{c1/introduction}
+\part{表格式方法}\label{part:1}
+\include{c2/multi-armed_bandits}
+\include{c3/finite_MDPs}
+
+\printbibliography[title={参考文献}]
+
+\end{document}
